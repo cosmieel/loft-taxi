@@ -27,8 +27,8 @@ export default class App extends Component {
                 <main>
                     <section>
                         {
-                            activePage === 'Login' ? <Login setFormLink={() => this.setActivePage('Signup')} /> :
-                            activePage === 'Signup' ? <Signup setFormLink={() => this.setActivePage('Login')}/> :
+                            activePage === 'Login' ? <Login setFormLink={() => this.setActivePage('Signup')} setSubmit={() => this.setActivePage('Map')} /> :
+                            activePage === 'Signup' ? <Signup setFormLink={() => this.setActivePage('Login')} setSubmit={() => this.setActivePage('Map')} /> :
                             activePage === 'Map' ? <Map /> :
                             <Profile />
                         }
