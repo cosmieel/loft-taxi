@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const FormSignup = (props) => {
+export const FormSignup = ({ setSubmit }) => {
     return (
       <form>
         <label htmlFor="email">Адрес электронной почты</label>
@@ -15,7 +15,7 @@ export const FormSignup = (props) => {
         <label htmlFor="password">Пароль</label>
         <input id="password" type="password" name="password" placeholder="Пароль" />
 
-        <button type="submit" onClick={props.setSubmit}>Войти</button>
+        <button type="submit" onClick={setSubmit}>Войти</button>
       </form>
     );
   };
