@@ -1,21 +1,35 @@
 import React from 'react'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import { useStyles } from '../../styles/form'
 
 export const FormSignup = ({ setSubmit }) => {
+    const classes = useStyles();
+    
     return (
-      <form>
-        <label htmlFor="email">Адрес электронной почты</label>
-        <input id="email" type="email" name="email" placeholder="email" />
+        <form>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <TextField id="email" label="Адрес электронной почты" fullWidth={true} required={true} className={classes.form__field} />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField id="name" label="Имя" fullWidth={true} required={true} className={classes.form__field} />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField id="surname" label="Фамилия" fullWidth={true} required={true} className={classes.form__field} />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField id="password" label="Пароль" fullWidth={true} required={true} className={classes.form__field} />
+                </Grid>
+                <Grid item xs={12} align="right">
+                    <Button type="submit" variant="contained" color="primary" onClick={setSubmit}>
+                        Войти
+                    </Button>
+                </Grid>
+            </Grid>
 
-        <label htmlFor="name">Имя</label>
-        <input id="name" type="text" name="name" placeholder="Имя" />
-
-        <label htmlFor="surname">Фамилия</label>
-        <input id="surname" type="text" name="surname" placeholder="Фамилия" />
-
-        <label htmlFor="password">Пароль</label>
-        <input id="password" type="password" name="password" placeholder="Пароль" />
-
-        <button type="submit" onClick={setSubmit}>Войти</button>
-      </form>
+            
+        </form>
     );
-  };
+};

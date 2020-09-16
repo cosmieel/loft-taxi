@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import 'fontsource-roboto';
 import './App.scss';
 import { Header }   from './components/common/Header/Header';
 import { Login }  from './components/pages/Login/Login';
@@ -19,11 +20,15 @@ export default class App extends Component {
         const activePage = this.state.activePage
         return (
             <div className="App">
-                <Header
-                    setMapLink={() => this.setActivePage('Map')}
-                    setProfileLink={() => this.setActivePage('Profile')}
-                    setLoginLink={() => this.setActivePage('Login')} 
-                />
+                {
+                    (activePage !== 'Login' && activePage !== 'Signup') &&
+                    <Header
+                        setMapLink={() => this.setActivePage('Map')}
+                        setProfileLink={() => this.setActivePage('Profile')}
+                        setLoginLink={() => this.setActivePage('Login')} 
+                    />
+                }
+                
                 <main>
                     <section>
                         {

@@ -1,17 +1,24 @@
 import React from 'react'
-import './Header.scss'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import { Logo } from 'loft-taxi-mui-theme'
+import { useStyles } from './headerStyles'
 
-export const Header = ({ setMapLink, setProfileLink, setLoginLink }) => (
-    <header className="header">
-        <div className="header__logo">
-            LoftTaxi
-        </div>
-        <nav className="header__nav">
-            <ul className="header__links">
-                <li className="header__link" onClick={setMapLink}>Карта</li>
-                <li className="header__link" onClick={setProfileLink}>Профиль</li>
-                <li className="header__link" onClick={setLoginLink}>Логин</li>
-            </ul>
-        </nav>
-    </header>
-)
+export const Header = ({ setMapLink, setProfileLink, setLoginLink }) => {
+    const classes = useStyles()
+
+    return (
+        <AppBar position="static" className={classes.header}>
+            <Toolbar className={classes.header__inner}>
+                <Typography component="p" className={classes.header__logo}>
+                    <Logo animated={true} className={classes.header__logo_img}/>
+                </Typography>
+                <Button href="#" onClick={setMapLink}>Карта</Button>
+                <Button href="#" onClick={setProfileLink}>Профиль</Button>
+                <Button onClick={setLoginLink}>Выйти</Button>
+            </Toolbar>
+        </AppBar>
+    )
+}
