@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles(() => ({
     header: {
         backgroundColor: '#fff',
-        height: '78px'
+        height: '78px',
+        zIndex: '10',
+        position: 'relative',
     },
     header__logo: {
         flexGrow: 1,
