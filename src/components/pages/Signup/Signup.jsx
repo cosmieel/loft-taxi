@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
@@ -39,3 +40,8 @@ export const Signup = ({ setFormLink, setSubmit }) => {
         </Paper>
     )
 }
+
+Signup.propTypes = {
+    setFormLink: PropTypes.func,
+    setSubmit: PropTypes.func,
+};

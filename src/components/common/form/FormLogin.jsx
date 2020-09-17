@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
@@ -24,4 +25,8 @@ export const FormLogin = ({ setSubmit }) => {
             </Grid>
         </form>
     );
+};
+
+FormLogin.propTypes = {
+    setSubmit: PropTypes.func,
 };

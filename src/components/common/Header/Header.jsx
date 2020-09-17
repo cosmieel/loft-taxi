@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -22,3 +23,9 @@ export const Header = ({ setMapLink, setProfileLink, setLoginLink }) => {
         </AppBar>
     )
 }
+
+Header.propTypes = {
+    setMapLink: PropTypes.func,
+    setProfileLink: PropTypes.func,
+    setLoginLink: PropTypes.func,
+};
