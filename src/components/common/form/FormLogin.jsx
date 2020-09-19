@@ -1,24 +1,34 @@
 import PropTypes from "prop-types";
-import React from 'react'
+import React, { useContext } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { useStyles } from '../../styles/form'
+import { AuthContext } from '../../context/AuthContext'
 
 export const FormLogin = ({ setSubmit }) => {
     const classes = useStyles();
+    const { login, isLoggedIn } = useContext(AuthContext);
+
+    const submit = (event) => {
+        event.preventDefault();
+        const { email, password } = event.target;
+        login(email.value, password.value);
+
+        isLoggedIn && setSubmit();
+    }
 
     return (
-        <form>
+        <form onSubmit={submit}>
             <Grid container >
                 <Grid item xs={12}>
                     <TextField id="email" label="Имя пользователя" fullWidth={true} required={true} className={classes.form__field} />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField id="password" label="Пароль" fullWidth={true} required={true} className={classes.form__field} />
+                    <TextField id="password" label="Пароль"type="password" fullWidth={true} required={true} className={classes.form__field} />
                 </Grid>
                 <Grid item xs={12} align="right">
-                    <Button type="submit" variant="contained" color="primary" onClick={setSubmit}>
+                    <Button type="submit" variant="contained" color="primary">
                         Войти
                     </Button>
                 </Grid>
