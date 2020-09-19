@@ -14,7 +14,7 @@ export const Signup = ({ setFormLink, setSubmit }) => {
     const classesHomepage = useHomepageStyles();
 
     return (
-        <Paper elevation={0} square={true} className={classesHomepage.homepage}>
+        <Paper elevation={0} square={true} className={classesHomepage.homepage} data-testid="Signup">
             <Grid container justify="center" alignItems="center" className={classesHomepage.homepage__container}>
                 <Grid item xs={3}>
                     <Logo white={true} animated={true} />

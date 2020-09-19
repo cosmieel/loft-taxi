@@ -21,6 +21,6 @@ export const Map = () => {
     }, []); 
 
     return (
-        <div className={classes.map} ref={mapContainerRef} />
+        <div data-testid="map" className={classes.map} ref={mapContainerRef} />
     );
 };

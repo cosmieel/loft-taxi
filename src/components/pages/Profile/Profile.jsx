@@ -2,6 +2,6 @@ import React from 'react'
 
 export const Profile = (props) => {
     return (
-        <>Профиль</>
+        <div data-testid='Profile'>Профиль</div>
     )
 }

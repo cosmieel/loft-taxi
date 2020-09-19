@@ -18,14 +18,14 @@ export const Header = ({ setMapLink, setProfileLink, setLoginLink }) => {
     }
 
     return (
-        <AppBar position="static" className={classes.header}>
+        <AppBar position="static" className={classes.header} data-testid='Header'>
             <Toolbar className={classes.header__inner}>
                 <Typography component="p" className={classes.header__logo}>
                     <Logo animated={true} className={classes.header__logo_img}/>
                 </Typography>
-                <Button href="#" onClick={setMapLink}>Карта</Button>
-                <Button href="#" onClick={setProfileLink}>Профиль</Button>
-                <Button onClick={logoutHandler}>Выйти</Button>
+                <Button href="#" onClick={setMapLink} data-testid='mapLink'>Карта</Button>
+                <Button href="#" onClick={setProfileLink} data-testid='profileLink'>Профиль</Button>
+                <Button onClick={logoutHandler} data-testid='logoutLink'>Выйти</Button>
             </Toolbar>
         </AppBar>
     )

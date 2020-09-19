@@ -1,19 +1,30 @@
 import React, { Component } from 'react'
 import 'fontsource-roboto';
 import './App.scss';
-import { Header }   from './components/common/Header/Header';
+import { Header } from './components/common/Header/Header';
 import { Login }  from './components/pages/Login/Login';
 import { Signup } from './components/pages/Signup/Signup';
 import { Map } from './components/pages/Map/Map';
 import { Profile } from './components/pages/Profile/Profile';
+import { AuthContext } from './components/context/AuthContext'
 
 export default class App extends Component {
+    static contextType = AuthContext
+    
     state = {
         activePage: 'Login'
     }
 
     setActivePage = (page) => {
-        this.setState({ activePage: page })
+        const { isLoggedIn } = this.context;
+
+        if (isLoggedIn) {
+            this.setState({ activePage: page })
+        } else {
+            this.setState({ activePage: 'Login' });
+        }
+
+        console.log(isLoggedIn);
     };
 
     render() {
