@@ -8,14 +8,20 @@ import { Logo } from 'loft-taxi-mui-theme'
 import { useStyles } from './headerStyles'
 import { AuthContext } from '../../context/AuthContext'
 
-export const Header = ({ setMapLink, setProfileLink, setLoginLink }) => {
+export const Header = ({ setHeaderLink }) => {
     const classes = useStyles();
     const { logout } = useContext(AuthContext);
 
     const logoutHandler = async() => {
         await logout();
-        setLoginLink();
+        setHeaderLink();
     }
+
+    const NAV = [
+        { nav: 'Map', text: 'Карта' },
+        { nav: 'Profile', text: 'Профиль' },
+        { nav: 'Login', text: 'Выйти' }, 
+    ]
 
     return (
         <AppBar position="static" className={classes.header} data-testid='Header'>
@@ -23,16 +29,22 @@ export const Header = ({ setMapLink, setProfileLink, setLoginLink }) => {
                 <Typography component="p" className={classes.header__logo}>
                     <Logo animated={true} className={classes.header__logo_img}/>
                 </Typography>
-                <Button href="#" onClick={setMapLink} data-testid='mapLink'>Карта</Button>
-                <Button href="#" onClick={setProfileLink} data-testid='profileLink'>Профиль</Button>
-                <Button onClick={logoutHandler} data-testid='logoutLink'>Выйти</Button>
+                {
+                    NAV.map(({ nav, text }) => (
+                        <Button 
+                            href="#" 
+                            onClick={() => nav === 'Login' ? logoutHandler(nav) : setHeaderLink(nav)} 
+                            key={nav}
+                        >{text}
+                        </Button>
+                    ))
+                }
+
             </Toolbar>
         </AppBar>
     )
 }
 
 Header.propTypes = {
-    setMapLink: PropTypes.func,
-    setProfileLink: PropTypes.func,
-    setLoginLink: PropTypes.func,
+    setHeaderLink: PropTypes.func,
 };

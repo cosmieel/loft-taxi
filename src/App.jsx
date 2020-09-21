@@ -8,6 +8,13 @@ import { Map } from './components/pages/Map/Map';
 import { Profile } from './components/pages/Profile/Profile';
 import { AuthContext } from './components/context/AuthContext'
 
+const PAGES = {
+    Login: (prop) => <Login setFormLink={() => prop.setActivePage('Signup')} setSubmit={() => prop.setActivePage('Map')} />,
+    Signup: (prop) => <Signup setFormLink={() => prop.setActivePage('Login')} setSubmit={() => prop.setActivePage('Map')} />,
+    Map: (prop) => <Map />,
+    Profile: (prop) => <Profile />
+}
+
 export default class App extends Component {
     static contextType = AuthContext
     
@@ -29,25 +36,15 @@ export default class App extends Component {
 
     render() {
         const activePage = this.state.activePage
+        const isLoggedInPages = activePage === 'Login' || activePage === 'Signup'
+
         return (
             <div className="App">
-                {
-                    (activePage !== 'Login' && activePage !== 'Signup') &&
-                    <Header
-                        setMapLink={() => this.setActivePage('Map')}
-                        setProfileLink={() => this.setActivePage('Profile')}
-                        setLoginLink={() => this.setActivePage('Login')} 
-                    />
-                }
+                {(!isLoggedInPages) && <Header setHeaderLink={this.setActivePage} />}
                 
                 <main>
                     <section>
-                        {
-                            activePage === 'Login' ? <Login setFormLink={() => this.setActivePage('Signup')} setSubmit={() => this.setActivePage('Map')} /> :
-                            activePage === 'Signup' ? <Signup setFormLink={() => this.setActivePage('Login')} setSubmit={() => this.setActivePage('Map')} /> :
-                            activePage === 'Map' ? <Map /> :
-                            <Profile />
-                        }
+                        {PAGES[activePage](this)}
                     </section>
                 </main>
             </div>
