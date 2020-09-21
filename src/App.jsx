@@ -36,11 +36,11 @@ export default class App extends Component {
 
     render() {
         const activePage = this.state.activePage
-        const isLoggedInPages = activePage === 'Login' || activePage === 'Signup'
+        const isAuthPages = activePage === 'Login' || activePage === 'Signup'
 
         return (
             <div className="App">
-                {(!isLoggedInPages) && <Header setHeaderLink={this.setActivePage} />}
+                {(!isAuthPages) && <Header setHeaderLink={this.setActivePage} />}
                 
                 <main>
                     <section>
