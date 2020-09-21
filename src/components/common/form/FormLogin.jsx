@@ -8,14 +8,14 @@ import { AuthContext } from '../../context/AuthContext'
 
 export const FormLogin = ({ setSubmit }) => {
     const classes = useStyles();
-    const { login, isLoggedIn } = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
 
-    const submit = (event) => {
+    const submit = async(event) => {
         event.preventDefault();
         const { email, password } = event.target;
-        login(email.value, password.value);
+        await login(email.value, password.value);
 
-        isLoggedIn && setSubmit();
+        setSubmit();
     }
 
     return (
@@ -28,7 +28,7 @@ export const FormLogin = ({ setSubmit }) => {
                     <TextField id="password" label="Пароль"type="password" fullWidth={true} required={true} className={classes.form__field} />
                 </Grid>
                 <Grid item xs={12} align="right">
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button type="submit" variant="contained" color="primary" >
                         Войти
                     </Button>
                 </Grid>

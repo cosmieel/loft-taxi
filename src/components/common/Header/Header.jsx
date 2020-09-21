@@ -10,11 +10,11 @@ import { AuthContext } from '../../context/AuthContext'
 
 export const Header = ({ setMapLink, setProfileLink, setLoginLink }) => {
     const classes = useStyles();
-    const { logout, isLoggedIn } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
 
-    const logoutHandler = () => {
-        logout();
-        !isLoggedIn && setLoginLink();
+    const logoutHandler = async() => {
+        await logout();
+        setLoginLink();
     }
 
     return (

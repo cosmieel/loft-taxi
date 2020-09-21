@@ -21,7 +21,7 @@ export default class App extends Component {
         if (isLoggedIn) {
             this.setState({ activePage: page })
         } else {
-            this.setState({ activePage: 'Login' });
+            this.state.activePage !== 'Login' ? this.setState({ activePage: 'Login' }) : this.setState({ activePage: 'Signup' })
         }
 
         console.log(isLoggedIn);
