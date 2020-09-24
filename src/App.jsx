@@ -1,51 +1,25 @@
 import React, { Component } from 'react'
+import { Route, Switch, Redirect } from "react-router-dom";
 import 'fontsource-roboto';
 import './App.scss';
-import { Header } from './components/common/Header/Header';
 import { Login }  from './components/pages/Login/Login';
 import { Signup } from './components/pages/Signup/Signup';
 import { Map } from './components/pages/Map/Map';
 import { Profile } from './components/pages/Profile/Profile';
-import { AuthContext } from './components/context/AuthContext'
-
-const PAGES = {
-    Login: (prop) => <Login setFormLink={() => prop.setActivePage('Signup')} setSubmit={() => prop.setActivePage('Map')} />,
-    Signup: (prop) => <Signup setFormLink={() => prop.setActivePage('Login')} setSubmit={() => prop.setActivePage('Map')} />,
-    Map: (prop) => <Map />,
-    Profile: (prop) => <Profile />
-}
+import { PrivateRoute } from './components/common/PrivateRoute/PrivateRoute'
 
 export default class App extends Component {
-    static contextType = AuthContext
-    
-    state = {
-        activePage: 'Login'
-    }
-
-    setActivePage = (page) => {
-        const { isLoggedIn } = this.context;
-
-        if (isLoggedIn) {
-            this.setState({ activePage: page })
-        } else {
-            this.state.activePage !== 'Login' ? this.setState({ activePage: 'Login' }) : this.setState({ activePage: 'Signup' })
-        }
-
-        console.log(isLoggedIn);
-    };
-
     render() {
-        const activePage = this.state.activePage
-        const isAuthPages = activePage === 'Login' || activePage === 'Signup'
-
         return (
             <div className="App">
-                {(!isAuthPages) && <Header setHeaderLink={this.setActivePage} />}
-                
                 <main>
-                    <section>
-                        {PAGES[activePage](this)}
-                    </section>
+                    <Switch>
+                        <Route path="/login" component={Login} />
+                        <Route path="/signup" component={Signup} />
+                        <PrivateRoute exact path="/map" component={Map} />
+                        <PrivateRoute exact path="/profile" component={Profile} />
+                        <Redirect to="/map" />
+                    </Switch>
                 </main>
             </div>
         )

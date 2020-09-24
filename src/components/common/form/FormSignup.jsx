@@ -1,11 +1,10 @@
-import PropTypes from "prop-types";
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { useStyles } from '../../styles/form'
 
-export const FormSignup = ({ setSubmit }) => {
+export const FormSignup = () => {
     const classes = useStyles();
     
     return (
@@ -24,7 +23,7 @@ export const FormSignup = ({ setSubmit }) => {
                     <TextField id="password" label="Пароль" fullWidth={true} required={true} className={classes.form__field} />
                 </Grid>
                 <Grid item xs={12} align="right">
-                    <Button type="submit" variant="contained" color="primary" onClick={setSubmit}>
+                    <Button type="submit" variant="contained" color="primary">
                         Войти
                     </Button>
                 </Grid>
@@ -33,8 +32,4 @@ export const FormSignup = ({ setSubmit }) => {
             
         </form>
     );
-};
-
-FormSignup.propTypes = {
-    setSubmit: PropTypes.func,
 };

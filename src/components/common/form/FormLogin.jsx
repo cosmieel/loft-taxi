@@ -1,21 +1,22 @@
-import PropTypes from "prop-types";
 import React, { useContext } from 'react'
+import { useHistory } from "react-router-dom";
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { useStyles } from '../../styles/form'
 import { AuthContext } from '../../context/AuthContext'
 
-export const FormLogin = ({ setSubmit }) => {
+export const FormLogin = () => {
     const classes = useStyles();
     const { login } = useContext(AuthContext);
+    const history = useHistory();
 
     const submit = async(event) => {
         event.preventDefault();
         const { email, password } = event.target;
         await login(email.value, password.value);
 
-        setSubmit();
+        history.push("/map");
     }
 
     return (
@@ -35,8 +36,4 @@ export const FormLogin = ({ setSubmit }) => {
             </Grid>
         </form>
     );
-};
-
-FormLogin.propTypes = {
-    setSubmit: PropTypes.func,
 };
