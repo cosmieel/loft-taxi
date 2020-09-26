@@ -7,7 +7,7 @@ import './App.scss';
 import { Login } from './components/pages/Login/Login';
 import { Signup } from './components/pages/Signup/Signup';
 import { Map } from './components/pages/Map/Map';
-import { Profile } from './components/pages/Profile/Profile';
+import { ProfilePage } from './components/pages/Profile/';
 import { getIsLoggedIn } from './modules/auth'
 
 
@@ -35,7 +35,7 @@ const App = ({ isLoggedIn }) => {
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
                     <PrivateRoute exact path="/map" component={Map} />
-                    <PrivateRoute exact path="/profile" component={Profile} />
+                    <PrivateRoute exact path="/profile" component={ProfilePage} />
                     <Redirect to="/map" />
                 </Switch>
             </main>

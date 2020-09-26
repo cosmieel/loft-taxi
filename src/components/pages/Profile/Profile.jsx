@@ -1,11 +1,27 @@
 import React from 'react'
-import Header from '../../common/Header/Header'
 
-export const Profile = (props) => {
+import { Grid, Paper, Typography } from '@material-ui/core/'
+import { useStyles } from './profileStyles'
+
+export const Profile = ({ children }) => {
+    const classes = useStyles()
+
     return (
-        <section>
-            <Header />
-            <div data-testid='Profile'>Профиль</div>
-        </section>
+        <Paper className={classes.profile}>
+            <Grid container
+                direction="column"
+                alignItems="center"
+                className={classes.profile__container}
+            >
+                <Grid item>
+                    <Paper elevation={1} className={classes.profile__card}>
+                        <Typography align="center" variant="h4" component="h1">Профиль</Typography>
+                        <Typography align="center" className={classes.profile__desc}>Способ оплаты</Typography>
+
+                        {children}
+                    </Paper>
+                </Grid>
+            </Grid>
+        </Paper>
     )
 }

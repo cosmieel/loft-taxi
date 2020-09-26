@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
+import { Grid, Button, TextField } from '@material-ui/core/'
 import { useStyles } from '../../styles/form'
 import { getIsLoggedIn, getError, fetchLoginRequest } from "../../../modules/auth"
 
@@ -33,7 +31,7 @@ const FormLogin = ({ fetchLoginRequest, isLoggedIn }) => {
 
     return (
         <form onSubmit={onSubmit}>
-            <Grid container >
+            <Grid container>
                 <Grid item xs={12}>
                     <TextField
                         id="email"
