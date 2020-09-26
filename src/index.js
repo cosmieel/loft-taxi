@@ -1,22 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
-import './index.scss';
-import App from './App';
-import { theme } from "loft-taxi-mui-theme"; // Импортируем саму тему
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import { AuthProvider } from './components/context/AuthContext'
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import './index.scss'
+import App from './App'
+import { theme } from 'loft-taxi-mui-theme'
+import { MuiThemeProvider } from '@material-ui/core/styles'
+import * as serviceWorker from './serviceWorker'
+import createStore from './store'
+import { Provider } from 'react-redux'
+
+const store = createStore();
 
 ReactDOM.render(
     <React.StrictMode>
-        <AuthProvider>
-            <BrowserRouter>
-                <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
+            <MuiThemeProvider theme={theme}>
+                <BrowserRouter>
                     <App />
-                </MuiThemeProvider>
-            </BrowserRouter>
-        </AuthProvider>
+                </BrowserRouter>
+            </MuiThemeProvider>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );

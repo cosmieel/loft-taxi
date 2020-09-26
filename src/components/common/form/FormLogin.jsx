@@ -1,32 +1,64 @@
-import React, { useContext } from 'react'
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react'
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { useStyles } from '../../styles/form'
-import { AuthContext } from '../../context/AuthContext'
+import { getIsLoggedIn, getError, fetchLoginRequest } from "../../../modules/auth"
 
-export const FormLogin = () => {
+const FormLogin = ({ fetchLoginRequest, isLoggedIn }) => {
     const classes = useStyles();
-    const { login } = useContext(AuthContext);
-    const history = useHistory();
 
-    const submit = async(event) => {
-        event.preventDefault();
-        const { email, password } = event.target;
-        await login(email.value, password.value);
+    const [userData, setUserData] = useState({
+        email: '',
+        password: ''
+    })
 
-        history.push("/map");
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        await fetchLoginRequest(userData)
     }
 
+    const onInputChange = e => {
+        let input = e.target;
+        setUserData({
+            ...userData,
+            [input.name]: input.value
+        });
+    }
+
+    if (isLoggedIn) return <Redirect to="/map" />
+
     return (
-        <form onSubmit={submit}>
+        <form onSubmit={onSubmit}>
             <Grid container >
                 <Grid item xs={12}>
-                    <TextField id="email" label="Имя пользователя" fullWidth={true} required={true} className={classes.form__field} />
+                    <TextField
+                        id="email"
+                        name="email"
+                        type="email"
+                        label="Имя пользователя"
+                        value={userData.email}
+                        onChange={onInputChange}
+                        inputProps={{ "data-testid": "inputName" }}
+                        fullWidth={true}
+                        required={true}
+                        className={classes.form__field} />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField id="password" label="Пароль"type="password" fullWidth={true} required={true} className={classes.form__field} />
+                    <TextField
+                        id="password"
+                        name="password"
+                        type="password"
+                        label="Пароль"
+                        value={userData.password}
+                        onChange={onInputChange}
+                        inputProps={{ "data-testid": "inputPassword" }}
+                        fullWidth={true}
+                        required={true}
+                        className={classes.form__field} />
                 </Grid>
                 <Grid item xs={12} align="right">
                     <Button type="submit" variant="contained" color="primary" >
@@ -37,3 +69,17 @@ export const FormLogin = () => {
         </form>
     );
 };
+
+FormLogin.propTypes = {
+    fetchLoginRequest: PropTypes.func,
+    isLoggedIn: PropTypes.bool
+}
+
+const mapStateToProps = state => ({
+    isLoggedIn: getIsLoggedIn(state),
+    error: getError(state)
+});
+
+const mapDispatchToProps = { fetchLoginRequest };
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormLogin);
