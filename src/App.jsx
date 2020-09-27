@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from 'react-redux'
 import 'fontsource-roboto';
 import './App.scss';
+import Header from './components/common/Header/Header'
 import { Login } from './components/pages/Login/Login';
 import { Signup } from './components/pages/Signup/Signup';
 import { Map } from './components/pages/Map/Map';
@@ -30,6 +31,9 @@ const App = ({ isLoggedIn }) => {
 
     return (
         <div className="App">
+
+            {isLoggedIn && <Header />}
+
             <main>
                 <Switch>
                     <Route path="/login" component={Login} />
@@ -45,11 +49,11 @@ const App = ({ isLoggedIn }) => {
 }
 
 App.propTypes = {
-	isLoggedIn: PropTypes.bool
+    isLoggedIn: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-	isLoggedIn: getIsLoggedIn(state)
+    isLoggedIn: getIsLoggedIn(state)
 });
 
 const mapDispatchToProps = {};

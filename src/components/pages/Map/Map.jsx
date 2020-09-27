@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/src/css/mapbox-gl.css'
 import { useStyles } from './mapStyles'
-import Header from '../../common/Header/Header'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY29zbWllZWwiLCJhIjoiY2tmNms4aDlnMHhiejJ5cDlhZ3IwdHo2ZiJ9.MUv3ZOQ4f8ovmVDjlBnTng';
 
@@ -23,7 +22,6 @@ export const Map = () => {
 
     return (
         <section>
-            <Header />
             <div data-testid="Map" className={classes.map} ref={mapContainerRef} />
         </section>
     );
