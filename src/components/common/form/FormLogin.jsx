@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { Grid, Button, TextField } from '@material-ui/core/'
 import { useStyles } from '../../styles/form'
-import { getIsLoggedIn, getError, fetchLoginRequest } from "../../../modules/auth"
+import { getIsLoggedIn, getError, fetchLoginRequest } from '../../../modules/auth'
 
 const FormLogin = ({ fetchLoginRequest, isLoggedIn }) => {
     const classes = useStyles();
@@ -40,10 +40,11 @@ const FormLogin = ({ fetchLoginRequest, isLoggedIn }) => {
                         label="Имя пользователя"
                         value={userData.email}
                         onChange={onInputChange}
-                        inputProps={{ "data-testid": "inputName" }}
+                        inputProps={{ "data-testid": "loginEmail" }}
                         fullWidth={true}
                         required={true}
-                        className={classes.form__field} />
+                        className={classes.form__field} 
+                    />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
@@ -53,13 +54,14 @@ const FormLogin = ({ fetchLoginRequest, isLoggedIn }) => {
                         label="Пароль"
                         value={userData.password}
                         onChange={onInputChange}
-                        inputProps={{ "data-testid": "inputPassword" }}
+                        inputProps={{ "data-testid": "loginPassword" }}
                         fullWidth={true}
                         required={true}
-                        className={classes.form__field} />
+                        className={classes.form__field} 
+                    />
                 </Grid>
                 <Grid item xs={12} align="right">
-                    <Button type="submit" variant="contained" color="primary" >
+                    <Button type="submit" variant="contained" color="primary" data-testid="loginSubmit">
                         Войти
                     </Button>
                 </Grid>

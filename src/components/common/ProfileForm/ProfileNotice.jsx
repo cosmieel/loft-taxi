@@ -7,7 +7,7 @@ export const ProfileNotice = () => {
     const classes = useStyles();
 
     return (
-        <Grid container spacing={2} className={classes.profileForm__notice}>
+        <Grid container spacing={2} className={classes.profileForm__notice} data-testid="profileNotice">
             <Grid item xs={12}>
                 <Typography>Платёжные данные обновлены. Теперь вы можете заказывать такси.</Typography>
             </Grid>

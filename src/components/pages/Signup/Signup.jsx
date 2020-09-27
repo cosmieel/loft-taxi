@@ -1,16 +1,15 @@
 import React from 'react'
-import { Link } from "react-router-dom";
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { Logo } from 'loft-taxi-mui-theme';
-import { FormSignup } from '../../common/form/FormSignup'
+import FormSignup from '../../common/form/FormSignup'
+import { NavLink } from '../../common/NavLink/NavLink'
+
+import { Grid, Paper, Typography, Link } from '@material-ui/core/'
+import { Logo } from 'loft-taxi-mui-theme'
 import { useStyles } from '../../styles/form'
 import { useHomepageStyles } from '../../styles/homepage'
 
 export const Signup = () => {
-    const classes = useStyles();
-    const classesHomepage = useHomepageStyles();
+    const classes = useStyles()
+    const classesHomepage = useHomepageStyles()
 
     return (
         <Paper component="section" elevation={0} square={true} className={classesHomepage.homepage} data-testid="Signup">
@@ -26,7 +25,7 @@ export const Signup = () => {
                                     Регистрация
                                 </Typography>
                                 <Typography component="p" align='left' className={classes.form__desc}>
-                                    Уже зарегистрированы? <Link to='/login'>Войти</Link>
+                                    Уже зарегистрированы? <Link to='/login' component={NavLink} data-testid="loginLink">Войти</Link>
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>

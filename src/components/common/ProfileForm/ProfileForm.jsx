@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { ProfileNotice } from './ProfileNotice'
 
@@ -74,7 +75,7 @@ const ProfileForm = ({ fetchProfileRequest, savedProfileData }) => {
                                         placeholder="0000 0000 0000 0000"
                                         value={profileData.cardNumber}
                                         onChange={onInputChange}
-                                        inputProps={{ maxLength: 16 }}
+                                        inputProps={{ maxLength: 16, "data-testid": "profileCardNumber" }}
                                         InputLabelProps={{ shrink: true }}
                                         fullWidth
                                         required
@@ -90,6 +91,7 @@ const ProfileForm = ({ fetchProfileRequest, savedProfileData }) => {
                                             minDate={new Date()}
                                             views={["year", "month"]}
                                             format="MM/yy"
+                                            inputProps={{ "data-testid": "profileExpiryDate" }}
                                             InputLabelProps={{ shrink: true }}
                                             autoOk={true}
                                             fullWidth
@@ -109,6 +111,7 @@ const ProfileForm = ({ fetchProfileRequest, savedProfileData }) => {
                                         placeholder="USER NAME"
                                         value={profileData.cardName}
                                         onChange={onInputChange}
+                                        inputProps={{ "data-testid": "profileCardName" }}
                                         InputLabelProps={{ shrink: true }}
                                         fullWidth
                                         required
@@ -120,7 +123,7 @@ const ProfileForm = ({ fetchProfileRequest, savedProfileData }) => {
                                         placeholder="CVC"
                                         value={profileData.cvc}
                                         onChange={onInputChange}
-                                        inputProps={{ maxLength: 3 }}
+                                        inputProps={{ maxLength: 3, "data-testid": "profileCVC" }}
                                         InputLabelProps={{ shrink: true }}
                                         required
                                     />
@@ -130,7 +133,13 @@ const ProfileForm = ({ fetchProfileRequest, savedProfileData }) => {
 
                     </Grid>
                     <Grid align="center">
-                        <Button type="submit" variant="contained" color="primary" className={classes.profileForm__button}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            className={classes.profileForm__button}
+                            data-testid="profileSave"
+                        >
                             Сохранить
                         </Button>
                     </Grid>
@@ -138,6 +147,11 @@ const ProfileForm = ({ fetchProfileRequest, savedProfileData }) => {
             </Grid>
         </form>
     )
+}
+
+ProfileForm.propTypes = {
+    fetchProfileRequest: PropTypes.func,
+    savedProfileData: PropTypes.object
 }
 
 const mapStateToProps = state => ({
@@ -149,7 +163,4 @@ const mapDispatchToProps = {
     fetchProfileRequest
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ProfileForm)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileForm)

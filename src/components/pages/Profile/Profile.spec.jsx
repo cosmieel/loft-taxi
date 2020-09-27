@@ -1,10 +1,15 @@
-import React from "react";
-import { Profile } from "./Profile";
-import { render } from "@testing-library/react";
+import React from 'react'
+import { createStore } from 'redux'
+import rootReducer from '../../../modules/'
+import { fetchLoginSuccess } from '../../../modules/auth'
+import { ProfilePage } from './'
 
 describe("Profile", () => {
     it("renders correctly", () => {
-        const { getByTestId } = render(<Profile />);
-        expect(getByTestId("Profile")).toBeTruthy();
-    });
-});
+        const store = createStore(rootReducer)
+        const { getByTestId } = renderWithProviders(<ProfilePage />, store)
+        store.dispatch(fetchLoginSuccess())
+
+        expect(getByTestId("Profile")).toBeTruthy()
+    })
+})

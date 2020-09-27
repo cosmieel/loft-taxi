@@ -2,10 +2,7 @@ import React from 'react'
 import FormLogin from '../../common/form/FormLogin'
 import { NavLink } from '../../common/NavLink/NavLink'
 
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link'
+import { Grid, Paper, Typography, Link } from '@material-ui/core/'
 import { Logo } from 'loft-taxi-mui-theme';
 import { useStyles } from '../../styles/form'
 import { useHomepageStyles } from '../../styles/homepage'
@@ -28,7 +25,7 @@ export const Login = () => {
                                     Войти
                                 </Typography>
                                 <Typography component="p" align='left' className={classes.form__desc}>
-                                    Новый пользователь? <Link to="/signup" component={NavLink}>Зарегистрируйтесь</Link>
+                                    Новый пользователь? <Link to="/signup" component={NavLink} data-testid="signupLink">Зарегистрируйтесь</Link>
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
