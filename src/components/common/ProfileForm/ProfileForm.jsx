@@ -12,10 +12,10 @@ import { useStyles } from './profileFormStyles'
 
 import {
     getProfileData, getError,
-    fetchProfileRequest
+    postProfileRequest, fetchProfileRequest
 } from '../../../modules/profile'
 
-const ProfileForm = ({ fetchProfileRequest, savedProfileData }) => {
+const ProfileForm = ({ postProfileRequest, savedProfileData }) => {
     const classes = useStyles();
 
     const [profileData, setProfileData] = useState({
@@ -29,8 +29,8 @@ const ProfileForm = ({ fetchProfileRequest, savedProfileData }) => {
 
     const onSubmit = e => {
         e.preventDefault()
-        fetchProfileRequest(profileData)
-            .then(data => setShowNotice(true))
+        postProfileRequest(profileData)
+        setShowNotice(true)
     }
 
     const onInputChange = e => {
@@ -150,6 +150,7 @@ const ProfileForm = ({ fetchProfileRequest, savedProfileData }) => {
 }
 
 ProfileForm.propTypes = {
+    postProfileRequest: PropTypes.func,
     fetchProfileRequest: PropTypes.func,
     savedProfileData: PropTypes.object
 }
@@ -160,6 +161,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
+    postProfileRequest,
     fetchProfileRequest
 }
 

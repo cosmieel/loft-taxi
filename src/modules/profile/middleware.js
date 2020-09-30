@@ -1,33 +1,17 @@
-import {
-    fetchProfileRequest,
-    fetchProfileSuccess,
-    fetchProfileFailure
-} from './actions'
+export const postProfileMiddleware = async (payload) => {
+    const response = await fetch(`https://loft-taxi.glitch.me/card`, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 
-export const profileFetchMiddleware = store => next => action => {
-    if (action.type === fetchProfileRequest.toString()) {
-        return fetch('https://loft-taxi.glitch.me/card', {
-            method: 'POST',
-            body: JSON.stringify(action.payload),
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (!data.success) {
-                    throw Error(data)
-                }
-                return data
-            })
-            .then(data => {
-                store.dispatch(fetchProfileSuccess(action.payload))
-                return data
-            })
-            .catch(error => {
-                store.dispatch(fetchProfileFailure(error))
-            })
-    }
-    return next(action)
-}
+    return response.json();
+};
+
+export const fetchProfileMiddleware = async (token) => {
+    const response = await fetch(`https://loft-taxi.glitch.me/card?token=${token}`);
+
+    return response.json();
+};

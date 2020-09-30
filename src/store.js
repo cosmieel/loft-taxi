@@ -2,7 +2,6 @@ import { createStore, compose, applyMiddleware } from "redux"
 import createSagaMiddleware from 'redux-saga'
 import rootReducer from "./modules";
 import { getLocalStorage } from './localstorage'
-import { profileFetchMiddleware } from './modules/profile/middleware'
 import { rootSaga } from './modules/rootSaga'
 
 const initialState = getLocalStorage()
@@ -14,7 +13,6 @@ const createRootStore = () => {
         initialState,
         compose(
             applyMiddleware(sagaMiddleware),
-            applyMiddleware(profileFetchMiddleware),
             window.__REDUX_DEVTOOLS_EXTENSION__
                 ? window.__REDUX_DEVTOOLS_EXTENSION__()
                 : noop => noop
