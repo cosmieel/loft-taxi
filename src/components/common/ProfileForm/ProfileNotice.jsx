@@ -14,6 +14,7 @@ export const ProfileNotice = () => {
             <Grid item xs={12}>
                 <Button
                     className={classes.profileForm__noticeButton}
+                    data-testid="goToMap"
                     component={NavLink}
                     to="/map"
                     variant="contained"

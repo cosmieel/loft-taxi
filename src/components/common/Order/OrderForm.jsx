@@ -53,15 +53,15 @@ const OrderForm = ({ addressList, fetchRouteRequest, fetchAddressRequest }) => {
     }
 
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} data-testid='OrderForm'>
             <Grid container>
-                <Grid item xs={12} className={classes.order__select}>
+                <Grid item xs={12} className={classes.order__select} data-testid='addressFrom'>
                     <FormControl className={classes.order__selectItem}>
                         <InputLabel htmlFor='from'>Откуда</InputLabel>
                         <OrderAddressSelect addressKey='from' filteredAddressOption={route.to} />
                     </FormControl>
                 </Grid>
-                <Grid item xs={12} className={classes.order__select}>
+                <Grid item xs={12} className={classes.order__select} data-testid='addressTo'>
                     <FormControl className={classes.order__selectItem}>
                         <InputLabel htmlFor='to'>Куда</InputLabel>
                         <OrderAddressSelect addressKey='to' filteredAddressOption={route.from} />
@@ -72,7 +72,7 @@ const OrderForm = ({ addressList, fetchRouteRequest, fetchAddressRequest }) => {
                         type='submit'
                         variant='contained'
                         color='primary'
-                        data-testid='buttonLogin'
+                        data-testid='OrderFormSubmit'
                         fullWidth
                         size='large'
                     >

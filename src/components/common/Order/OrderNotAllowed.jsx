@@ -9,7 +9,7 @@ export const OrderNotAllowed = () => {
     const classes = useStyles()
 
     return (
-        <Grid container>
+        <Grid container data-testid='OrderNotAllowed'>
             <Grid item xs={12} className={classes.order__title}>
                 <Typography variant="h4" component="h1" align='left'>
                     Заполните платежные данные
@@ -27,6 +27,7 @@ export const OrderNotAllowed = () => {
                     variant='contained'
                     color='primary'
                     fullWidth={true}
+                    data-testid='goToProfile'
                 >
                     Перейти в Профиль
                 </Button>

@@ -2,7 +2,7 @@ import React from 'react'
 import { createStore } from 'redux'
 import rootReducer from '../../../modules'
 import { fetchLoginSuccess } from '../../../modules/auth'
-import { MapBlock } from './MapBlock'
+import MapBlock from './MapBlock'
 import mapbox from 'mapbox-gl'
 
 jest.mock("mapbox-gl", () => ({

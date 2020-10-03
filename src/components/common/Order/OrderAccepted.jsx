@@ -9,7 +9,7 @@ export const OrderAccepted = ({ newOrderHandle }) => {
     const classes = useStyles()
 
     return (
-        <Grid container>
+        <Grid container data-testid='OrderAccepted'>
             <Grid item xs={12} className={classes.order__title}>
                 <Typography variant="h4" component="h1" align='left'>
                     Заказ размещён
@@ -26,6 +26,7 @@ export const OrderAccepted = ({ newOrderHandle }) => {
                     variant='contained'
                     color='primary'
                     fullWidth={true}
+                    data-testid='makeNewOrder'
                 >
                     Сделать новый заказ
                 </Button>
