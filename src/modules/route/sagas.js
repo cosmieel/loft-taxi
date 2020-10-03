@@ -12,7 +12,6 @@ export function* fetchRouteSaga(action) {
 		yield put(fetchRouteSuccess(response))
 	} catch (error) {
 		yield put(fetchRouteFailure(error))
-		console.log(error)
 	}
 }
 

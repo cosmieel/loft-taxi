@@ -16,6 +16,5 @@ export function* fetchAddressSaga() {
 		yield put(fetchAddressSuccess(response.addresses))
 	} catch (error) {
 		yield put(fetchAddressFailure(error))
-		console.log(error)
 	}
 }

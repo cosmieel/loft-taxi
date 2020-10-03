@@ -17,7 +17,6 @@ export function* postProfileRequestSaga(action) {
 		yield put(postProfileSuccess(action.payload))
 	} catch (error) {
 		yield put(postProfileFailure(error))
-		console.log(error)
 	}
 }
 export function* postProfile() {
@@ -30,7 +29,6 @@ export function* fetchProfileRequestSaga(action) {
 		yield put(fetchProfileSuccess(response))
 	} catch (error) {
 		yield put(fetchProfileFailure(error))
-		console.log(error)
 	}
 }
 export function* fetchProfile() {

@@ -1,61 +1,65 @@
-import reducer from "./reducer";
+import reducer from './reducer'
+import { 
+    fetchRouteRequest, fetchRouteSuccess, fetchRouteFailure, 
+    fetchRouteReset
+} from './actions'
 
-describe("route reducer", () => {
-	it("should return the initial state", () => {
+describe('route reducer', () => {
+	it('should return the initial state', () => {
 		expect(reducer(undefined, {})).toEqual({
-			routeCoords: [],
+			route: [],
+			isOrderAccepted: false,
 			error: null,
-			orderIsAccepted: false
-		});
-	});
+		})
+	})
 
-	it("should handle FETCH_ROUTE_REQUEST", () => {
+	it(`should fetch ${fetchRouteRequest.toString()}`, () => {
 		expect(
 			reducer({}, {
-				type: "FETCH_ROUTE_REQUEST"
+				type: fetchRouteRequest.toString()
 			})
 		).toEqual({
-			routeCoords: [],
+			route: [],
+			isOrderAccepted: false,
 			error: null,
-			orderIsAccepted: false
-		});
-	});
+		})
+	})
 
-	it("should handle FETCH_ROUTE_SUCCESS", () => {
+	it(`should fetch ${fetchRouteSuccess.toString()}`, () => {
 		expect(
 			reducer({}, {
-				type: "FETCH_ROUTE_SUCCESS",
+				type: fetchRouteSuccess.toString(),
 				payload: [1, 2, 3]
 			})
 		).toEqual({
-			routeCoords: [1, 2, 3],
+			route: [1, 2, 3],
+			isOrderAccepted: true,
 			error: null,
-			orderIsAccepted: true
-		});
-	});
+		})
+	})
 
-	it("should handle FETCH_ROUTE_FAILURE", () => {
+	it(`should fetch ${fetchRouteFailure.toString()}`, () => {
 		expect(
 			reducer({}, {
-				type: "FETCH_ROUTE_FAILURE",
-				payload: "error text"
+				type: fetchRouteFailure.toString(),
+				payload: 'error text'
 			})
 		).toEqual({
-			routeCoords: [],
-			error: "error text",
-			orderIsAccepted: false
-		});
-	});
+			route: [],
+			isOrderAccepted: false,
+			error: 'error text',
+		})
+	})
 
-	it("should handle RESET_ROUTE", () => {
+	it(`should fetch ${fetchRouteReset.toString()}`, () => {
 		expect(
 			reducer({}, {
-				type: "RESET_ROUTE"
+				type: fetchRouteReset.toString()
 			})
 		).toEqual({
-			routeCoords: [],
+			route: [],
+			isOrderAccepted: false,
 			error: null,
-			orderIsAccepted: false
-		});
-	});
-});
+		})
+	})
+})
