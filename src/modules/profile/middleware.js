@@ -10,7 +10,8 @@ export const postProfileMiddleware = async (payload) => {
     return response.json();
 };
 
-export const fetchProfileMiddleware = async (token) => {
+export const fetchProfileMiddleware = async () => {
+    const token = window.localStorage.getItem('token')
     const response = await fetch(`https://loft-taxi.glitch.me/card?token=${token}`);
 
     return response.json();

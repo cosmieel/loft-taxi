@@ -13,10 +13,7 @@ import { setLocalStorage } from './localstorage'
 const store = createStore();
 
 store.subscribe(() => {
-    setLocalStorage({
-        isLoggedIn: store.getState().isLoggedIn,
-        profile: store.getState().profile,
-    });
+    setLocalStorage(store.getState());
 })
 
 ReactDOM.render(

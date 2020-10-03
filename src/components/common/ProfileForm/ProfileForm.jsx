@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { ProfileNotice } from './ProfileNotice'
 
-import 'date-fns';
+import 'date-fns'
 import { Box, Paper, Grid, TextField, Button } from '@material-ui/core/'
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
@@ -16,7 +16,7 @@ import {
 } from '../../../modules/profile'
 
 const ProfileForm = ({ postProfileRequest, savedProfileData }) => {
-    const classes = useStyles();
+    const classes = useStyles()
 
     const [profileData, setProfileData] = useState({
         cardNumber: savedProfileData.cardNumber || '',

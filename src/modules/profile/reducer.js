@@ -28,7 +28,7 @@ const isProfileDataSaved = handleActions(
         [fetchProfileRequest]: () => false,
         [fetchProfileSuccess]: () => true,
         [fetchProfileFailure]: () => false,
-        [fetchLogout]: () => false,
+        [fetchLogout]: () => true,
     },
     false
 )
