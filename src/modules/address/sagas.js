@@ -1,5 +1,5 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
-import * as api from './middleware'
+import * as api from '../baseMiddleware'
 import {
 	fetchAddressRequest,
 	fetchAddressSuccess,
@@ -12,7 +12,8 @@ export function* addressListSaga() {
 
 export function* fetchAddressSaga() {
 	try {
-		let response = yield call(api.fetchAddressMiddleware)
+        const path = 'addressList'
+		const response = yield call(api.middlewareGET, path)
 		yield put(fetchAddressSuccess(response.addresses))
 	} catch (error) {
 		yield put(fetchAddressFailure(error))

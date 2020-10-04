@@ -1,5 +1,5 @@
 import { takeEvery, call, put, fork } from 'redux-saga/effects'
-import * as api from './middleware'
+import * as api from '../baseMiddleware'
 import {
     postProfileRequest, postProfileSuccess, postProfileFailure,
     fetchProfileRequest, fetchProfileSuccess, fetchProfileFailure
@@ -13,7 +13,8 @@ export function* paymentSaga() {
 
 export function* postProfileRequestSaga(action) {
 	try {
-		yield call(api.postProfileMiddleware, action)
+        const path = 'card'
+		yield call(api.middlewarePOST, action, path)
 		yield put(postProfileSuccess(action.payload))
 	} catch (error) {
 		yield put(postProfileFailure(error))
@@ -25,7 +26,8 @@ export function* postProfile() {
 
 export function* fetchProfileRequestSaga(action) {
 	try {
-		const response = yield call(api.fetchProfileMiddleware, action.payload)
+        const path = `card?token=${action.payload}`
+		const response = yield call(api.middlewareGET, path)
 		yield put(fetchProfileSuccess(response))
 	} catch (error) {
 		yield put(fetchProfileFailure(error))

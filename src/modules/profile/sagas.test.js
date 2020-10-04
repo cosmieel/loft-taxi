@@ -1,5 +1,5 @@
 import { mockSaga } from '../mockSaga'
-import * as api from './middleware'
+import * as api from '../baseMiddleware'
 import { postProfileRequestSaga, fetchProfileRequestSaga } from './sagas'
 import {
     postProfileRequest, postProfileSuccess, postProfileFailure,
@@ -7,11 +7,11 @@ import {
 } from './actions'
 
 describe.only('postProfileRequestSaga', () => {
-    api.postProfileMiddleware = jest.fn()
+    api.middlewarePOST = jest.fn()
     const error = new Error('test')
 
     it('should post profile with success', async () => {
-        api.postProfileMiddleware.mockImplementation(() =>
+        api.middlewarePOST.mockImplementation(() =>
             Promise.resolve({ success: true })
         )
 
@@ -28,7 +28,7 @@ describe.only('postProfileRequestSaga', () => {
     })
 
     it('should post profile with failure', async () => {
-        api.postProfileMiddleware.mockImplementation(() => {
+        api.middlewarePOST.mockImplementation(() => {
             throw error
         })
 
@@ -46,11 +46,11 @@ describe.only('postProfileRequestSaga', () => {
 })
 
 describe.only('fetchProfileRequestSaga', () => {
-    api.fetchProfileMiddleware = jest.fn()
+    api.middlewareGET = jest.fn()
     const error = new Error('test')
 
     it('should get profile with success', async () => {
-        api.fetchProfileMiddleware.mockImplementation(() =>
+        api.middlewareGET.mockImplementation(() =>
             Promise.resolve({ test: 'test' })
         )
 
@@ -65,7 +65,7 @@ describe.only('fetchProfileRequestSaga', () => {
     })
 
     it('should get profile with failure', async () => {
-        api.fetchProfileMiddleware.mockImplementation(() => {
+        api.middlewareGET.mockImplementation(() => {
             throw error
         })
 

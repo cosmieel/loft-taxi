@@ -1,5 +1,5 @@
 import { mockSaga } from '../mockSaga'
-import * as api from './middleware'
+import * as api from '../baseMiddleware'
 import { fetchRouteSaga } from './sagas'
 import {
 	fetchRouteRequest,
@@ -8,11 +8,11 @@ import {
 } from './actions'
 
 describe.only('fetchRouteSaga', () => {
-	api.fetchRouteMiddleware = jest.fn()
+	api.middlewareRouteGET = jest.fn()
 	const error = new Error('test')
 
 	it('should get route with success', async () => {
-		api.fetchRouteMiddleware.mockImplementation(() =>
+		api.middlewareRouteGET.mockImplementation(() =>
 			Promise.resolve({
 				payload: ['data1', 'data2', 'data3']
 			})
@@ -29,7 +29,7 @@ describe.only('fetchRouteSaga', () => {
 	})
 
 	it('should get route with failure', async () => {
-		api.fetchRouteMiddleware.mockImplementation(() => {
+		api.middlewareRouteGET.mockImplementation(() => {
 			throw error
 		})
 

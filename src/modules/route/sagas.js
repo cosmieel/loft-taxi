@@ -1,5 +1,5 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
-import * as api from './middleware'
+import * as api from '../baseMiddleware'
 import {
 	fetchRouteRequest,
 	fetchRouteSuccess,
@@ -8,7 +8,7 @@ import {
 
 export function* fetchRouteSaga(action) {
 	try {
-		let response = yield call(api.fetchRouteMiddleware, action)
+		let response = yield call(api.middlewareRouteGET, action)
 		yield put(fetchRouteSuccess(response))
 	} catch (error) {
 		yield put(fetchRouteFailure(error))

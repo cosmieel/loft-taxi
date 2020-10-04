@@ -1,5 +1,5 @@
 import { mockSaga } from '../mockSaga'
-import * as api from './middleware'
+import * as api from '../baseMiddleware'
 import { fetchAddressSaga } from './sagas'
 import {
 	fetchAddressRequest,
@@ -8,11 +8,11 @@ import {
 } from './actions'
 
 describe.only('fetchAddressSaga', () => {
-	api.fetchAddressMiddleware = jest.fn()
+	api.middlewareGET = jest.fn()
 	const error = new Error('test')
 
 	it('should get addresses with success', async () => {
-		api.fetchAddressMiddleware.mockImplementation(() =>
+		api.middlewareGET.mockImplementation(() =>
 			Promise.resolve({
 				payload: ['data1', 'data2', 'data3']
 			})
@@ -27,7 +27,7 @@ describe.only('fetchAddressSaga', () => {
 	})
 
 	it('should get addresses with failure', async () => {
-		api.fetchAddressMiddleware.mockImplementation(() => {
+		api.middlewareGET.mockImplementation(() => {
 			throw error
 		})
 
