@@ -10,8 +10,6 @@ import {
     fetchProfileFailure
 } from './actions'
 
-import { fetchLogout } from '../auth/actions'
-
 const profileData = handleActions(
     {
         [postProfileRequest]: () => {},
@@ -28,7 +26,6 @@ const isProfileDataSaved = handleActions(
         [fetchProfileRequest]: () => false,
         [fetchProfileSuccess]: () => true,
         [fetchProfileFailure]: () => false,
-        [fetchLogout]: () => true,
     },
     false
 )
@@ -41,7 +38,6 @@ const error = handleActions(
         [fetchProfileRequest]: () => null,
         [fetchProfileSuccess]: () => null,
         [fetchProfileFailure]: (_state, action) => action.payload,
-        [fetchLogout]: () => null,
     },
     null
 )

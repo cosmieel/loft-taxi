@@ -8,13 +8,8 @@ import { MuiThemeProvider } from '@material-ui/core/styles'
 import * as serviceWorker from './serviceWorker'
 import createStore from './store'
 import { Provider } from 'react-redux'
-import { setLocalStorage } from './localstorage'
 
 const store = createStore();
-
-store.subscribe(() => {
-    setLocalStorage(store.getState());
-})
 
 ReactDOM.render(
     <React.StrictMode>

@@ -15,7 +15,7 @@ import {
     postProfileRequest, fetchProfileRequest
 } from '../../../modules/profile'
 
-const ProfileForm = ({ postProfileRequest, savedProfileData }) => {
+const ProfileForm = ({ postProfileRequest, fetchProfileRequest, savedProfileData }) => {
     const classes = useStyles()
 
     const [profileData, setProfileData] = useState({
@@ -23,8 +23,8 @@ const ProfileForm = ({ postProfileRequest, savedProfileData }) => {
         expiryDate: savedProfileData.expiryDate || new Date(),
         cardName: savedProfileData.cardName || '',
         cvc: savedProfileData.cvc || '',
-        token: window.localStorage.getItem('token')
     })
+
     const [showNotice, setShowNotice] = useState(false)
 
     const onSubmit = e => {

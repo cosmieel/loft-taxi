@@ -9,15 +9,8 @@ import {
 export function* fetchLoginRequestSaga(action) {
     try {
         const response = yield call(api.authRequestMiddleware, action.payload, 'auth')
-        const { success, token, error } = response
-        const email = action.payload.email
-
-        if (success) {
-            yield call(api.setToken, token)
-            yield put(fetchLoginSuccess({ token, email }))
-        } else {
-            yield put(fetchLoginFailure(error));
-        }
+            yield call(api.setToken, response.token)
+            yield put(fetchLoginSuccess())
     } catch (error) {
         yield put(fetchLoginFailure(error))
     }
@@ -31,15 +24,8 @@ export function* authorizationSaga() {
 export function* fetchSignUpRequestSaga(action) {
     try {
         const response = yield call(api.authRequestMiddleware, action.payload, 'register')
-        const { success, token, error } = response
-        const email = action.payload.email
-
-        if (success) {
-            yield call(api.setToken, token)
-            yield put(fetchSignUpSuccess({ token, email }))
-        } else {
-            yield put(fetchSignUpFailure(error))
-        }
+            yield call(api.setToken, response.token)
+            yield put(fetchSignUpSuccess())
     } catch (error) {
         yield put(fetchSignUpFailure(error))
     }

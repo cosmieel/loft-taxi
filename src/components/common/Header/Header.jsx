@@ -14,7 +14,7 @@ const Header = ({ fetchLogout }) => {
     const logoutHandler = async () => {
         await fetchLogout();
 
-        window.localStorage.clear();
+        localStorage.clear();
     }
 
     return (

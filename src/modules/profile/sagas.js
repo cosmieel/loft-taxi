@@ -25,7 +25,7 @@ export function* postProfile() {
 
 export function* fetchProfileRequestSaga(action) {
 	try {
-		const response = yield call(api.fetchProfileMiddleware, action)
+		const response = yield call(api.fetchProfileMiddleware, action.payload)
 		yield put(fetchProfileSuccess(response))
 	} catch (error) {
 		yield put(fetchProfileFailure(error))
