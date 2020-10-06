@@ -15,6 +15,7 @@ export const useStyles = makeStyles(() => ({
         marginBottom: '10px'
     },
     form__field: {
-        marginBottom: '30px'
+        marginBottom: '30px',
+        paddingBottom: '5px'
     },
 }));
