@@ -9,6 +9,7 @@ import Adapter from 'enzyme-adapter-react-16'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
 import { Provider } from 'react-redux'
+import 'mutationobserver-shim'
 
 configure({ adapter: new Adapter() });
 
@@ -24,6 +25,8 @@ global.renderWithProviders = function(children, store) {
 		store
 	};
 }
+
+global.MutationObserver = window.MutationObserver
 
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
     GeolocateControl: jest.fn(),
