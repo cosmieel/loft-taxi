@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-
+import { useForm } from 'react-hook-form'
 import { useStyles } from './orderStyles'
 import { Grid, MenuItem, Select, Button, FormControl, InputLabel } from '@material-ui/core/'
 import { fetchAddressRequest, getAddressList } from '../../../modules/address'
@@ -9,14 +9,18 @@ import { fetchRouteRequest } from '../../../modules/route'
 
 const OrderForm = ({ addressList, fetchRouteRequest, fetchAddressRequest }) => {
     const classes = useStyles()
-    const [route, setRoute] = useState({
-        from: '',
-        to: ''
-    })
+    const { register, handleSubmit, setValue, getValues, watch } = useForm()
 
     useEffect(() => {
         fetchAddressRequest()
-    }, [fetchAddressRequest])
+
+        register({ name: "from" }, { required: true });
+        register({ name: "to" }, { required: true });
+    }, [fetchAddressRequest, register])
+
+    const values = getValues()
+    const watchFrom = watch("from")
+    const watchTo = watch("to")
 
     const OrderAddressSelect = ({ addressKey, filteredAddressOption }) => {
 
@@ -28,8 +32,9 @@ const OrderForm = ({ addressList, fetchRouteRequest, fetchAddressRequest }) => {
 
         return (
             <Select
-                value={route[addressKey]}
+                value={values[addressKey] || ""}
                 onChange={onChange}
+                name={addressKey}
                 inputProps={{ name: addressKey, id: addressKey }}
                 data-testid={addressKey}
                 autoWidth
@@ -40,31 +45,26 @@ const OrderForm = ({ addressList, fetchRouteRequest, fetchAddressRequest }) => {
     }
 
     const onChange = e => {
-        let input = e.target
-        setRoute({
-            ...route,
-            [input.name]: input.value
-        })
+        setValue(e.target.name, e.target.value)
     }
 
-    const onSubmit = e => {
-        e.preventDefault()
-        fetchRouteRequest(route)
+    const onSubmit = data => {
+        fetchRouteRequest(data)
     }
 
     return (
-        <form onSubmit={onSubmit} data-testid='OrderForm'>
+        <form onSubmit={handleSubmit(onSubmit)} data-testid='OrderForm'>
             <Grid container>
                 <Grid item xs={12} className={classes.order__select} data-testid='addressFrom'>
                     <FormControl className={classes.order__selectItem}>
                         <InputLabel htmlFor='from'>Откуда</InputLabel>
-                        <OrderAddressSelect addressKey='from' filteredAddressOption={route.to} />
+                        <OrderAddressSelect addressKey='from' filteredAddressOption={watchTo} />
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} className={classes.order__select} data-testid='addressTo'>
                     <FormControl className={classes.order__selectItem}>
                         <InputLabel htmlFor='to'>Куда</InputLabel>
-                        <OrderAddressSelect addressKey='to' filteredAddressOption={route.from} />
+                        <OrderAddressSelect addressKey='to' filteredAddressOption={watchFrom} />
                     </FormControl>
                 </Grid>
                 <Grid item xs={12} className={classes.order__btn}>
@@ -75,6 +75,7 @@ const OrderForm = ({ addressList, fetchRouteRequest, fetchAddressRequest }) => {
                         data-testid='OrderFormSubmit'
                         fullWidth
                         size='large'
+                        disabled={!watchFrom || !watchTo}
                     >
                         Вызвать такси
                     </Button>
