@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { ProfileNotice } from './ProfileNotice'
-
+import { useForm, Controller } from 'react-hook-form'
+import NumberFormat from 'react-number-format'
 import 'date-fns'
 import { Box, Paper, Grid, TextField, Button } from '@material-ui/core/'
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
@@ -17,37 +18,36 @@ import {
 
 const ProfileForm = ({ postProfileRequest, fetchProfileRequest, savedProfileData }) => {
     const classes = useStyles()
-
-    const [profileData, setProfileData] = useState({
-        cardNumber: savedProfileData.cardNumber || '',
-        expiryDate: savedProfileData.expiryDate || new Date(),
-        cardName: savedProfileData.cardName || '',
-        cvc: savedProfileData.cvc || '',
+    const { control, handleSubmit, setValue, errors, trigger } = useForm({
+        mode: 'onBlur',
     })
+
+    const CardNumberFormat = (props) => {
+        const { inputRef, onChange, ...rest } = props
+        return (
+            <NumberFormat
+                {...rest}
+                onValueChange={(values) => {
+                    setValue('cardNumber', values.value)
+                }}
+                isNumericString
+                format="#### #### #### ####"
+            />
+        )
+    }
+
+    useEffect(() => {
+        setValue('cardNumber', savedProfileData.cardNumber || '')
+        setValue('expiryDate', savedProfileData.expiryDate || new Date())
+        setValue('cardName', savedProfileData.cardName || '')
+        setValue('cvc', savedProfileData.cvc || '')
+    }, [savedProfileData, setValue])
 
     const [showNotice, setShowNotice] = useState(false)
 
-    const onSubmit = e => {
-        e.preventDefault()
-        postProfileRequest(profileData)
+    const onSubmit = data => {
+        postProfileRequest(data)
         setShowNotice(true)
-    }
-
-    const onInputChange = e => {
-        let input = e.target
-        setProfileData({
-            ...profileData,
-            [input.name]: input.value
-        })
-        setShowNotice(false)
-    }
-
-    const onDateInputChange = date => {
-        setProfileData({
-            ...profileData,
-            expiryDate: date
-        })
-        setShowNotice(false)
     }
 
     if (showNotice) {
@@ -55,7 +55,7 @@ const ProfileForm = ({ postProfileRequest, fetchProfileRequest, savedProfileData
     }
 
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container alignContent="center">
                 <Grid item xs={12}>
                     <Grid
@@ -68,34 +68,54 @@ const ProfileForm = ({ postProfileRequest, fetchProfileRequest, savedProfileData
                             <Paper elevation={3} className={classes.profileForm__card}>
                                 <Box className={classes.profileForm__fields}>
                                     <div className={classes.profileForm__icon}><MCIcon /></div>
-                                    <TextField
+                                    <Controller
+                                        as={TextField}
+                                        control={control}
+                                        className={classes.profileForm__field}
                                         name="cardNumber"
                                         type="text"
                                         label="Номер карты:"
                                         placeholder="0000 0000 0000 0000"
-                                        value={profileData.cardNumber}
-                                        onChange={onInputChange}
-                                        inputProps={{ maxLength: 16, "data-testid": "profileCardNumber" }}
+                                        defaultValue=""
+                                        inputProps={{ "data-testid": "profileCardNumber" }}
                                         InputLabelProps={{ shrink: true }}
-                                        fullWidth
-                                        required
+                                        InputProps={{
+                                            inputComponent: CardNumberFormat,
+                                        }}
+                                        rules={{
+                                            required: 'Укажите номер карты',
+                                            minLength: {
+                                                value: 16,
+                                                message: 'В номере карты 16 цифр',
+                                            },
+                                        }}
+                                        error={errors.cardNumber && true}
+                                        helperText={errors.cardNumber && errors.cardNumber.message}
+                                        fullWidth={true}
+                                        required={true}
                                     />
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                        <DatePicker
+                                        <Controller
+                                            as={DatePicker}
+                                            control={control}
+                                            className={classes.profileForm__field}
                                             name="expiryDate"
                                             label="Срок действия:"
-                                            placeholder="12/23"
-                                            value={profileData.expiryDate}
-                                            onChange={onDateInputChange}
-                                            openTo="year"
                                             minDate={new Date()}
-                                            views={["year", "month"]}
                                             format="MM/yy"
+                                            defaultValue=""
+                                            clearable
+                                            disablePast
+                                            views={["year", "month"]}
                                             inputProps={{ "data-testid": "profileExpiryDate" }}
                                             InputLabelProps={{ shrink: true }}
-                                            autoOk={true}
-                                            fullWidth
-                                            required
+                                            rules={{
+                                                required: 'Укажите срок действия карты',
+                                            }}
+                                            error={!!errors.expiryDate}
+                                            helperText={errors.expiryDate && errors.expiryDate.message}
+                                            fullWidth={true}
+                                            required={true}
                                         />
                                     </MuiPickersUtilsProvider>
                                 </Box>
@@ -104,28 +124,52 @@ const ProfileForm = ({ postProfileRequest, fetchProfileRequest, savedProfileData
                         <Grid item xs={6}>
                             <Paper elevation={3} className={classes.profileForm__card}>
                                 <Box className={classes.profileForm__fields}>
-                                    <TextField
+                                    <Controller
+                                        as={TextField}
+                                        control={control}
+                                        className={classes.profileForm__field}
                                         name="cardName"
                                         type="text"
                                         label="Имя владельца:"
                                         placeholder="USER NAME"
-                                        value={profileData.cardName}
-                                        onChange={onInputChange}
-                                        inputProps={{ "data-testid": "profileCardName" }}
+                                        defaultValue=""
+                                        inputProps={{
+                                            "data-testid": "profileCardName",
+                                            "style": { textTransform: 'uppercase' }
+                                        }}
                                         InputLabelProps={{ shrink: true }}
-                                        fullWidth
-                                        required
+                                        rules={{
+                                            required: 'Укажите имя владельца',
+                                            pattern: {
+                                                value: /^[A-Za-z\s]+$/i,
+                                                message: 'Формат имени: NAME SURNAME'
+                                            },
+                                        }}
+                                        error={!!errors.cardName}
+                                        helperText={errors.cardName && errors.cardName.message}
+                                        fullWidth={true}
+                                        required={true}
                                     />
-                                    <TextField
+                                    <Controller
+                                        as={TextField}
+                                        control={control}
+                                        className={classes.profileForm__field}
                                         name="cvc"
                                         type="text"
                                         label="CVC:"
                                         placeholder="CVC"
-                                        value={profileData.cvc}
-                                        onChange={onInputChange}
+                                        defaultValue=""
                                         inputProps={{ maxLength: 3, "data-testid": "profileCVC" }}
                                         InputLabelProps={{ shrink: true }}
-                                        required
+                                        rules={{
+                                            required: 'Укажите CVC',
+                                            minLength: 3,
+                                            maxLength: 3
+                                        }}
+                                        error={!!errors.cvc}
+                                        helperText={errors.cvc && errors.cvc.message}
+                                        fullWidth={true}
+                                        required={true}
                                     />
                                 </Box>
                             </Paper>
@@ -139,6 +183,7 @@ const ProfileForm = ({ postProfileRequest, fetchProfileRequest, savedProfileData
                             color="primary"
                             className={classes.profileForm__button}
                             data-testid="profileSave"
+                            onClick={() => trigger()}
                         >
                             Сохранить
                         </Button>

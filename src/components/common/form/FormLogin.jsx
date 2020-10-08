@@ -10,7 +10,7 @@ import { getIsLoggedIn, getError, fetchLoginRequest } from '../../../modules/aut
 const FormLogin = ({ fetchLoginRequest, isLoggedIn }) => {
     const classes = useStyles()
     const { control, handleSubmit, errors, trigger } = useForm({
-        mode: 'onChange',
+        mode: 'onBlur',
     })
     const [userData, setUserData] = useState({
         email: '',

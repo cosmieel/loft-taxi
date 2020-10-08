@@ -22,6 +22,9 @@ export const useStyles = makeStyles(() => ({
         flexDirection: 'column',
         justifyContent: 'space-around',        
     },
+    profileForm__field: {
+        paddingBottom: '5px'
+    },
     profileForm__icon: {
         position: "absolute",
         top: "0px",
