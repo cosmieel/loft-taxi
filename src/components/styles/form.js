@@ -18,4 +18,12 @@ export const useStyles = makeStyles(() => ({
         marginBottom: '30px',
         paddingBottom: '5px'
     },
+    form__errorMessage: {
+        marginTop: '20px',
+        marginBottom: '20px',
+        color: '#f44336',
+        textAlign: 'center',
+        fontSize: '14px',
+        lineHeight: '16px'
+    },
 }));
